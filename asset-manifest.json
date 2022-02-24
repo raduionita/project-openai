@@ -1,0 +1,22 @@
+{
+  "files": {
+    "app.js": "/project-openai/static/js/app.502b4dcb.chunk.js",
+    "app.js.map": "/project-openai/static/js/app.502b4dcb.chunk.js.map",
+    "runtime~app.js": "/project-openai/static/js/runtime~app.03be4266.js",
+    "runtime~app.js.map": "/project-openai/static/js/runtime~app.03be4266.js.map",
+    "static/js/2.0aa3ee39.chunk.js": "/project-openai/static/js/2.0aa3ee39.chunk.js",
+    "static/js/2.0aa3ee39.chunk.js.map": "/project-openai/static/js/2.0aa3ee39.chunk.js.map",
+    "favicon-16.png": "/project-openai/favicon-16.png",
+    "favicon-32.png": "/project-openai/favicon-32.png",
+    "favicon.ico": "/project-openai/favicon.ico",
+    "index.html": "/project-openai/index.html",
+    "manifest.json": "/project-openai/manifest.json",
+    "serve.json": "/project-openai/serve.json",
+    "static/js/2.0aa3ee39.chunk.js.LICENSE.txt": "/project-openai/static/js/2.0aa3ee39.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime~app.03be4266.js",
+    "static/js/2.0aa3ee39.chunk.js",
+    "static/js/app.502b4dcb.chunk.js"
+  ]
+}
