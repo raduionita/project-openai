@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Configuration, OpenAIApi } from "openai"
 import { useAsyncEffect } from './hooks/useAsyncEffect';
 
-const ai = new OpenAIApi(new Configuration({apiKey: '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'}));
+const ai = new OpenAIApi(new Configuration({apiKey:'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'}));
 
 export default function App() {
   const [messages,setMessages] = useState<IMessage[]>([]);
