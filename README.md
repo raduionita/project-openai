@@ -36,3 +36,10 @@ class GiftedChat {
   onPressAvatar:Function(user), // when avatar is tapped 
 }
 ```
+
+
+```shell 
+
+
+
+```

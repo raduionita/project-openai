@@ -1,12 +1,30 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, KeyboardAvoidingView, Platform, Dimensions } from 'react-native';
 import React, { useState, useCallback, useEffect } from 'react';
-import { GiftedChat, IMessage } from 'react-native-gifted-chat';
+import { Composer, ComposerProps, GiftedChat, IMessage, SendProps } from 'react-native-gifted-chat';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Configuration, OpenAIApi } from "openai"
 import { useAsyncEffect } from './hooks/useAsyncEffect';
 
-const ai = new OpenAIApi(new Configuration({apiKey:'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'}));
+// https://5ucgrx57li.execute-api.us-east-2.amazonaws.com/live/completion
+
+
+const ChatComposer = (props : ComposerProps & {
+  onSend: SendProps<IMessage>['onSend'],
+  text: SendProps<IMessage>['text'],
+}) => (
+  <Composer
+    {...props}
+    textInputProps={{
+      ...props.textInputProps,
+      blurOnSubmit: Platform.OS === 'web',
+      onSubmitEditing: Platform.OS === 'web' ? () => { 
+        if (props.text && props.onSend) {
+          props.onSend({text:props.text.trim()}, true);
+        }
+      } : undefined, 
+    }}
+  />
+);
 
 export default function App() {
   const [messages,setMessages] = useState<IMessage[]>([]);
@@ -49,23 +67,32 @@ export default function App() {
  
   const newCompletion = async (incommings : IMessage[]) => {
     setTyping(true);
-    const message = incommings[0];
     try {
-      const completion = await ai.createCompletion('text-ada-001', {
-        prompt: message.text,        // text
-        max_tokens: 24,    
-        temperature: 0.9, // more risky responses
-        top_p:0.3,
-        frequency_penalty:0.5,
-        presence_penalty:0.0,
-        user:'1',
+      const message = incommings[0];
+      const response = await fetch('https://5ucgrx57li.execute-api.us-east-2.amazonaws.com/live/completion', {
+        method:'POST',
+        headers: {
+          'Accept':'application/json',
+          'Content-Type':'application/json',
+        },
+        body: JSON.stringify({
+          prompt: message.text,        // text
+          max_tokens: 24,    
+          temperature: 0.9, // more risky responses
+          top_p:0.3,
+          frequency_penalty:0.5,
+          presence_penalty:0.0,
+          user:'1',
+        })
       });
 
-      console.log('newCompletion', completion.data.choices[0].text?.trim());
+      const json = await response.json();
+      //const text = await response.text();
+      console.info('newCompletion', json);
 
       setMessages(previousMessages => GiftedChat.append(previousMessages , [{
         _id: String(Math.random() * Math.random()).substr(2),
-        text: completion.data.choices[0].text,
+        text: (json.body['choices'][0].text||'').trim(),
         createdAt: new Date,
         user: {
           _id:'2',
@@ -101,10 +128,24 @@ export default function App() {
                   user={{ _id:'1', name:'Me', avatar:'https://placeimg.com/140/140/people', }}
                   showUserAvatar={true}
                   showAvatarForEveryMessage={true}
-                  renderUsernameOnMessage={true}/>
-
-      { Platform.OS === 'android' && 
-      <KeyboardAvoidingView behavior="padding" /> }
+                  renderUsernameOnMessage={true}
+                  renderComposer={(props : ComposerProps & {
+                    onSend: SendProps<IMessage>['onSend'],
+                    text: SendProps<IMessage>['text'],
+                  }) => (
+                    <Composer
+                      {...props}
+                      textInputProps={{
+                        ...props.textInputProps,
+                        blurOnSubmit: Platform.OS === 'web',
+                        onSubmitEditing: Platform.OS === 'web' ? () => { 
+                          if (props.text && props.onSend) {
+                            props.onSend({text:props.text.trim()}, true);
+                          }
+                        } : undefined, 
+                      }}
+                    />
+                  )}/>
 
       <StatusBar style="auto" />
     </View>
