@@ -121,13 +121,15 @@ export default function App() {
                   user={{ _id:'1', name:'Me', avatar:'https://placeimg.com/140/140/people', }}
                   showUserAvatar={true}
                   showAvatarForEveryMessage={true}
+                  
                   renderUsernameOnMessage={true}
-                  renderComposer={(props :ChatComposerProps) => (
+                  renderComposer={(props:ChatComposerProps) => (
                     <Composer
                       {...props}
                       textInputProps={{
                         ...props.textInputProps,
                         onKeyPress:(evt) => (evt.nativeEvent.key == 'Enter') ? onSubmitEditing(props) : undefined,
+                        
                         blurOnSubmit: Platform.OS === 'web',
                         onSubmitEditing: Platform.OS === 'web' ? () => onSubmitEditing(props) : undefined, 
                       }}
