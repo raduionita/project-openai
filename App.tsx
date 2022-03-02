@@ -8,23 +8,10 @@ import { useAsyncEffect } from './hooks/useAsyncEffect';
 // https://5ucgrx57li.execute-api.us-east-2.amazonaws.com/live/completion
 
 
-const ChatComposer = (props : ComposerProps & {
+type ChatComposerProps = ComposerProps & {
   onSend: SendProps<IMessage>['onSend'],
   text: SendProps<IMessage>['text'],
-}) => (
-  <Composer
-    {...props}
-    textInputProps={{
-      ...props.textInputProps,
-      blurOnSubmit: Platform.OS === 'web',
-      onSubmitEditing: Platform.OS === 'web' ? () => { 
-        if (props.text && props.onSend) {
-          props.onSend({text:props.text.trim()}, true);
-        }
-      } : undefined, 
-    }}
-  />
-);
+};
 
 export default function App() {
   const [messages,setMessages] = useState<IMessage[]>([]);
@@ -120,6 +107,12 @@ export default function App() {
     })()
   }, []);
 
+  const onSubmitEditing = (props:ChatComposerProps) => {
+    if (props.text && props.onSend) {
+      props.onSend({text:props.text.trim()}, true);
+    }
+  };
+
   return (
     <View style={{ flex: 1, backgroundColor: '#fff', }}>
       <GiftedChat messages={messages}
@@ -129,27 +122,14 @@ export default function App() {
                   showUserAvatar={true}
                   showAvatarForEveryMessage={true}
                   renderUsernameOnMessage={true}
-                  renderComposer={(props : ComposerProps & {
-                    onSend: SendProps<IMessage>['onSend'],
-                    text: SendProps<IMessage>['text'],
-                  }) => (
+                  renderComposer={(props :ChatComposerProps) => (
                     <Composer
                       {...props}
                       textInputProps={{
                         ...props.textInputProps,
-                        onKeyPress:(evt) => {
-                          if(evt.nativeEvent.key == 'Enter') {
-                            if (props.text && props.onSend) {
-                              props.onSend({text:props.text.trim()}, true);
-                            }
-                          }
-                        },
+                        onKeyPress:(evt) => (evt.nativeEvent.key == 'Enter') ? onSubmitEditing(props) : undefined,
                         blurOnSubmit: Platform.OS === 'web',
-                        onSubmitEditing: Platform.OS === 'web' ? () => { 
-                          if (props.text && props.onSend) {
-                            props.onSend({text:props.text.trim()}, true);
-                          }
-                        } : undefined, 
+                        onSubmitEditing: Platform.OS === 'web' ? () => onSubmitEditing(props) : undefined, 
                       }}
                     />
                   )}/>
