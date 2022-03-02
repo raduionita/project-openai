@@ -1,22 +1,22 @@
 {
   "files": {
-    "app.js": "/project-openai/static/js/app.98d230c5.chunk.js",
-    "app.js.map": "/project-openai/static/js/app.98d230c5.chunk.js.map",
+    "app.js": "/project-openai/static/js/app.ca4bf3ae.chunk.js",
+    "app.js.map": "/project-openai/static/js/app.ca4bf3ae.chunk.js.map",
     "runtime~app.js": "/project-openai/static/js/runtime~app.03be4266.js",
     "runtime~app.js.map": "/project-openai/static/js/runtime~app.03be4266.js.map",
-    "static/js/2.e6305f54.chunk.js": "/project-openai/static/js/2.e6305f54.chunk.js",
-    "static/js/2.e6305f54.chunk.js.map": "/project-openai/static/js/2.e6305f54.chunk.js.map",
+    "static/js/2.1f52c04d.chunk.js": "/project-openai/static/js/2.1f52c04d.chunk.js",
+    "static/js/2.1f52c04d.chunk.js.map": "/project-openai/static/js/2.1f52c04d.chunk.js.map",
     "favicon-16.png": "/project-openai/favicon-16.png",
     "favicon-32.png": "/project-openai/favicon-32.png",
     "favicon.ico": "/project-openai/favicon.ico",
     "index.html": "/project-openai/index.html",
     "manifest.json": "/project-openai/manifest.json",
     "serve.json": "/project-openai/serve.json",
-    "static/js/2.e6305f54.chunk.js.LICENSE.txt": "/project-openai/static/js/2.e6305f54.chunk.js.LICENSE.txt"
+    "static/js/2.1f52c04d.chunk.js.LICENSE.txt": "/project-openai/static/js/2.1f52c04d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime~app.03be4266.js",
-    "static/js/2.e6305f54.chunk.js",
-    "static/js/app.98d230c5.chunk.js"
+    "static/js/2.1f52c04d.chunk.js",
+    "static/js/app.ca4bf3ae.chunk.js"
   ]
 }
