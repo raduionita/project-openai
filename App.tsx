@@ -137,6 +137,13 @@ export default function App() {
                       {...props}
                       textInputProps={{
                         ...props.textInputProps,
+                        onKeyPress:(evt) => {
+                          if(evt.nativeEvent.key == 'Enter') {
+                            if (props.text && props.onSend) {
+                              props.onSend({text:props.text.trim()}, true);
+                            }
+                          }
+                        },
                         blurOnSubmit: Platform.OS === 'web',
                         onSubmitEditing: Platform.OS === 'web' ? () => { 
                           if (props.text && props.onSend) {
